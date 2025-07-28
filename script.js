@@ -7,6 +7,18 @@ let num1 = null;
 let num2 = null;
 let operation = null;
 
+function solve(a, b, op) {
+    const x = parseFloat(a);
+    const y = parseFloat(b);
+    switch (op) {
+        case '+': return (x + y).toString();
+        case '-': return (x - y).toString();
+        case '×': return (x * y).toString();
+        case '÷': return y !== 0 ? (x / y).toString() : 'Error';
+        default: return b;
+    }
+}
+
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener('click', () => {
         // Prevent inputting more than 9 digits (ignore decimal point)
@@ -41,16 +53,20 @@ operationButtons.forEach(operationButton => {
         // Remove highlight from previous operation if any
         if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
             previouslyClickedButton.classList.remove('active');
-        }
+        } else if (num1 === null) {
+            // If first number not yet set, save current display as num1
+            num1 = display.textContent;
+        } else if (num1 !== null) {
+            // If num1 is set and a new operation is clicked (after entering second value), solve
+            num2 = display.textContent;
+            const result = solve(num1, num2, operation);
+            display.textContent = result;
+            num1 = result;
+        } 
 
         // Highlight the clicked button
         operationButton.classList.add('active');
         previouslyClickedButton = operationButton;
-
-        // If first number not yet set, save current display as num1
-        if (num1 === null) {
-            num1 = display.textContent;
-        }
 
         // Save operation
         operation = operationButton.textContent;
