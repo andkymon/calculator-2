@@ -14,11 +14,16 @@ numberButtons.forEach(numberButton => {
         const digitCount = display.textContent.replace(/\D/g, '').length;
         if (digitCount >= 9) return;
 
-        // If display is '0', replace it with the clicked number
-        // Otherwise, append the clicked number to the display
-        if (display.textContent === '0') {
+        // If entering the second value (after operation selected)
+        if (num1 !== null && previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
+            display.textContent = numberButton.textContent;
+            previouslyClickedButton.classList.remove('active');
+            previouslyClickedButton = null;
+        } else if (display.textContent === '0') {
+            // If display is '0', replace it with the clicked number
             display.textContent = numberButton.textContent;
         } else {
+            // Otherwise, append the clicked number to the display
             display.textContent += numberButton.textContent;
         }
 
