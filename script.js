@@ -73,6 +73,26 @@ operationButtons.forEach(operationButton => {
     });
 });
 
+const equalsButton = document.querySelector('.btn.equals');
+
+equalsButton.addEventListener('click', () => {
+    if (num1 !== null && operation) {
+        // Remove highlight from previous operation if any
+        if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
+            previouslyClickedButton.classList.remove('active');
+        }
+
+        num2 = display.textContent;
+        const result = solve(num1, num2, operation);
+        display.textContent = result;
+
+        // Reset calculator state
+        num1 = null;
+        num2 = null;
+        operation = null;
+    }
+});
+
 clearButton.addEventListener('click', () => {
     display.textContent = '0';
     clearButton.textContent = 'AC';
