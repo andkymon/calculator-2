@@ -38,15 +38,7 @@ let previouslyClickedButton = null;
 
 operationButtons.forEach(operationButton => {
     operationButton.addEventListener('click', () => {
-        // When operation is clicked, and no operation or equals was previously clicked, save current display value as first number
-        if ((!previouslyClickedButton || !previouslyClickedButton.classList.contains('operator')) && num1 === null) {
-            previouslyClickedButton = operationButton;
-            operationButton.classList.add('active');
-            num1 = display.textContent;
-            return;
-        }
-
-        // If another operation was already active, remove its highlight
+        // Remove highlight from previous operation if any
         if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
             previouslyClickedButton.classList.remove('active');
         }
@@ -55,6 +47,12 @@ operationButtons.forEach(operationButton => {
         operationButton.classList.add('active');
         previouslyClickedButton = operationButton;
 
+        // If first number not yet set, save current display as num1
+        if (num1 === null) {
+            num1 = display.textContent;
+        }
+
+        // Save operation
         operation = operationButton.textContent;
     });
 });
