@@ -2,6 +2,12 @@ const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.btn.number');
 const clearButton = document.querySelector('.btn.function');
 
+// Variables to store calculator state
+let num1 = null;
+let num2 = null;
+let operation = null;
+
+// Number button functionality
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener('click', () => {
         // Prevent adding more than 9 digits (ignore decimal point)
@@ -19,4 +25,15 @@ numberButtons.forEach(numberButton => {
         // Update the clear button text to 'C' when a number is added
         clearButton.textContent = 'C';
     });
+});
+
+// Clear button functionality
+clearButton.addEventListener('click', () => {
+    display.textContent = '0';
+    clearButton.textContent = 'AC';
+
+    // Reset calculator state
+    num1 = null;
+    num2 = null;
+    operation = null;
 });
