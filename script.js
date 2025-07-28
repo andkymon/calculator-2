@@ -31,20 +31,28 @@ numberButtons.forEach(numberButton => {
 const operationButtons = document.querySelectorAll('.btn.operator');
 let previouslyClickedButton = null;
 
+operationButtons.forEach(operationButton => {
+    operationButton.addEventListener('click', () => {
+        // When operation is clicked, and no operation or equals was previously clicked, save current display value as first number
+        if ((!previouslyClickedButton || !previouslyClickedButton.classList.contains('operator')) && num1 === null) {
+            previouslyClickedButton = operationButton;
+            operationButton.classList.add('active');
+            num1 = display.textContent;
+            operation = operationButton.textContent;
+            return;
+        }
 
-operationButtons.forEach(opButton => {
-    opButton.addEventListener('click', () => {
-        // If another operation is already active, remove its highlight
+        // If another operation was already active, remove its highlight
         if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
             previouslyClickedButton.classList.remove('active');
         }
-        
+
         // Highlight the clicked button
-        opButton.classList.add('active');
-        previouslyClickedButton = opButton;
+        operationButton.classList.add('active');
+        previouslyClickedButton = operationButton;
 
         // Set operation to clicked button's text content
-        operation = opButton.textContent;
+        operation = operationButton.textContent;
     });
 });
 
