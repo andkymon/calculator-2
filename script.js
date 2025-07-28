@@ -27,10 +27,36 @@ numberButtons.forEach(numberButton => {
     });
 });
 
+// Operation button functionality
+const operationButtons = document.querySelectorAll('.btn.operator');
+let previouslyClickedButton = null;
+
+
+operationButtons.forEach(opButton => {
+    opButton.addEventListener('click', () => {
+        // If another operation is already active, remove its highlight
+        if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
+            previouslyClickedButton.classList.remove('active');
+        }
+        
+        // Highlight the clicked button
+        opButton.classList.add('active');
+        previouslyClickedButton = opButton;
+
+        // Set operation to clicked button's text content
+        operation = opButton.textContent;
+    });
+});
+
 // Clear button functionality
 clearButton.addEventListener('click', () => {
     display.textContent = '0';
     clearButton.textContent = 'AC';
+
+    // If an operation is active, remove its highlight
+    if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
+        previouslyClickedButton.classList.remove('active');
+    }
 
     // Reset calculator state
     num1 = null;

@@ -74,6 +74,12 @@ body {
   color: white;
 }
 
+.btn.operator.active,
+.btn.equals.active {
+  color: #ff9500;
+  background: white;
+}
+
 .btn.operator:hover,
 .btn.equals:hover {
   background: #ffbe64;
