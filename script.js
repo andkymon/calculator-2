@@ -17,9 +17,12 @@ function solve(a, b, op) {
         default: return b;
     }
     if (result === 'Error') return result;
-    const resultStr = result.toString();
+
+    // If result exceeds +-1e160, display Error
+    if (Math.abs(result) > 1e160) return 'Error';
 
     // If result length (excluding minus and decimal) > 9, use scientific notation
+    const resultStr = result.toString();
     if (resultStr.replace(/[-.]/g, '').length > 9) {
         return result.toExponential(4);
     }
