@@ -5,6 +5,8 @@ let operation = null;
 let activeOperatorButton = null;
 
 function solve(a, b, op) {
+    if (b === 0 && op === '÷') return 'Error';
+
     const x = parseFloat(a);
     const y = parseFloat(b);
     let result;
@@ -13,12 +15,10 @@ function solve(a, b, op) {
         case '+': result = x + y; break;
         case '-': result = x - y; break;
         case '×': result = x * y; break;
-        case '÷': result = y !== 0 ? x / y : 'Error'; break;
+        case '÷': result = x / y; break;
         default: return b;
     }
-    if (result === 'Error') return result;
 
-    // If result exceeds +-1e160, display Error
     if (Math.abs(result) > 1e160) return 'Error';
 
     // If result length (excluding minus and decimal) > 9, use scientific notation
