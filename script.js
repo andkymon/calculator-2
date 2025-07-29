@@ -34,7 +34,7 @@ numberButtons.forEach(numberButton => {
     numberButton.addEventListener('click', () => {
         // Prevent inputting more than 9 digits (ignore decimal point)
         const digitCount = display.textContent.replace(/\D/g, '').length;
-        if (digitCount >= 9) return;
+        if (digitCount >= 9 && activeOperatorButton === null) return; // Allow entering more digits if an operator is active as a second value is being entered
 
         // Prevent multiple decimals
         if (numberButton.textContent === '.' && display.textContent.includes('.')) return;
