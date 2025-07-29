@@ -140,3 +140,53 @@ percentButton.addEventListener('click', () => {
     if (display.textContent === 'Error') return;
     display.textContent = getDisplayResult(display.textContent, '100', '÷');
 });
+
+// Keyboard support
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    // Number keys and decimal
+    if (/^[0-9.]$/.test(key)) {
+        const btn = Array.from(document.querySelectorAll('.btn.number')).find(b => b.textContent === key);
+        if (btn) btn.click();
+        event.preventDefault();
+    }
+
+    // Operators
+    if (key === '+' || key === '-' || key === '*' || key === '/' || key === 'x' || key === 'X') {
+        let op = key;
+        if (op === '*' || op === 'x' || op === 'X') op = '×';
+        if (op === '/') op = '÷';
+        const btn = Array.from(document.querySelectorAll('.btn.operator')).find(b => b.textContent === op);
+        if (btn) btn.click();
+        event.preventDefault();
+    }
+
+    // Equals or Enter
+    if (key === '=' || key === 'Enter') {
+        const btn = document.querySelector('.btn.equals');
+        if (btn) btn.click();
+        event.preventDefault();
+    }
+    
+    // Clear (Escape or C)
+    if (key === 'Escape') {
+        const btn = document.querySelector('.btn.function.clear');
+        if (btn) btn.click();
+        event.preventDefault();
+    }
+    
+    // Percent
+    if (key === '%') {
+        const btn = document.querySelector('.btn.function.percent');
+        if (btn) btn.click();
+        event.preventDefault();
+    }
+    
+    // Negative (n)
+    if (key.toLowerCase() === 'n') {
+        const btn = document.querySelector('.btn.plusminus');
+        if (btn) btn.click();
+        event.preventDefault();
+    }
+});

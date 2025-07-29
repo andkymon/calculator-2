@@ -9,6 +9,20 @@
   <body>
     <div class="calculator" aria-label="Calculator">
       <div class="display" role="status" aria-live="polite" aria-label="Calculator display">0</div>
+      <div class="controls" aria-label="Keyboard Controls" aria-hidden="true">
+        <strong>Keyboard Controls:</strong>
+        <ul style="margin:0.5em 0 0 1.2em; padding:0;">
+          <li>Numbers &amp; . : Enter digits and decimal</li>
+          <li>+  -  *  / : Operators (× = * or x, ÷ = /)</li>
+          <li>= or Enter : Equals</li>
+          <li>Esc : Clear</li>
+          <li>% : Percent</li>
+          <li>n : Toggle plus/minus</li>
+        </ul>
+      </div>
+      <div class="sr-only" aria-label="Screen reader keyboard controls">
+        Keyboard Controls: Numbers and period: Enter digits and decimal. Plus, minus, asterisk, slash: Operators (times is asterisk or x, divide is slash). Equals or Enter: Equals. Escape: Clear. Percent: Percent. N: Toggle plus or minus.
+      </div>
       <div class="btn-container">
         <button class="btn function clear" aria-label="Clear">AC</button>
         <button class="btn function plusminus" aria-label="Toggle plus or minus">+/-</button>

@@ -102,6 +102,22 @@ body {
   padding-left: 24px;
 }
 
+.controls {
+  padding: 16px 8px;
+  margin-bottom: 16px;
+  background-color: wheat;
+  color: rgb(40, 40, 40);
+  border-radius: 12px;
+  box-shadow: inset 0px 2px 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 @media (max-width: 375px) {
   .calculator {
     transform: scale(0.9);
