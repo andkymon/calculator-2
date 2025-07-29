@@ -6,6 +6,7 @@ const clearButton = document.querySelector('.btn.function.clear');
 let num1 = null;
 let num2 = null;
 let operation = null;
+let activeOperatorButton = null;
 
 function solve(a, b, op) {
     const x = parseFloat(a);
@@ -46,8 +47,6 @@ numberButtons.forEach(numberButton => {
 });
 
 const operationButtons = document.querySelectorAll('.btn.operator');
-let activeOperatorButton = null;
-
 operationButtons.forEach(operationButton => {
     operationButton.addEventListener('click', () => {
         // Remove highlight from previous operation if any
@@ -74,7 +73,6 @@ operationButtons.forEach(operationButton => {
 });
 
 const equalsButton = document.querySelector('.btn.equals');
-
 equalsButton.addEventListener('click', () => {
     // Do nothing if an operator button is still active
     if (activeOperatorButton) {
@@ -129,3 +127,9 @@ if (plusMinusButton) {
         }
     });
 }
+
+const percentButton = document.querySelector('.btn.function.percent');
+percentButton.addEventListener('click', () => {
+    if (display.textContent === 'Error') return;
+    display.textContent = solve(display.textContent, '100', '÷');
+});
