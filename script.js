@@ -4,24 +4,29 @@ let num2 = null;
 let operation = null;
 let activeOperatorButton = null;
 
-function solve(a, b, op) {
+function getDisplayResult(a, b, op) {
     if (b === 0 && op === '÷') return 'Error';
 
     const x = parseFloat(a);
     const y = parseFloat(b);
-    let result;
-
-    switch (op) {
-        case '+': result = x + y; break;
-        case '-': result = x - y; break;
-        case '×': result = x * y; break;
-        case '÷': result = x / y; break;
-        default: return b;
-    }
-
+    const result = performOperation(x, y, op);
+    if (result === null) return b;
     if (Math.abs(result) > 1e160) return 'Error';
+    return formatResult(result);
+}
 
-    // If result length (excluding minus and decimal) > 9, use scientific notation
+function performOperation(x, y, op) {
+    switch (op) {
+        case '+': return x + y;
+        case '-': return x - y;
+        case '×': return x * y;
+        case '÷': return x / y;
+        default: return null;
+    }
+}
+
+// If result length (excluding minus and decimal) > 9, use scientific notation, else return as string
+function formatResult(result) {
     const resultStr = result.toString();
     if (resultStr.replace(/[-.]/g, '').length > 9) {
         return result.toExponential(4);
@@ -84,7 +89,7 @@ operationButtons.forEach(operationButton => {
         } else if (num1 !== null) {
             // If num1 is set and a new operation is clicked (after entering second value), solve
             num2 = display.textContent;
-            const result = solve(num1, num2, operation);
+            const result = getDisplayResult(num1, num2, operation);
             display.textContent = result;
             num1 = result;
         } 
@@ -103,7 +108,7 @@ equalsButton.addEventListener('click', () => {
     if (num1 !== null && operation) {
         if (!activeOperatorButton) { // Skip this snippet if an operator button is still active
             num2 = display.textContent;
-            const result = solve(num1, num2, operation);
+            const result = getDisplayResult(num1, num2, operation);
             display.textContent = result;
         }
         resetCalculator();
@@ -133,5 +138,5 @@ if (plusMinusButton) {
 const percentButton = document.querySelector('.btn.function.percent');
 percentButton.addEventListener('click', () => {
     if (display.textContent === 'Error') return;
-    display.textContent = solve(display.textContent, '100', '÷');
+    display.textContent = getDisplayResult(display.textContent, '100', '÷');
 });
