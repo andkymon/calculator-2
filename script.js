@@ -7,13 +7,23 @@ let activeOperatorButton = null;
 function solve(a, b, op) {
     const x = parseFloat(a);
     const y = parseFloat(b);
+    let result;
+
     switch (op) {
-        case '+': return (x + y).toString();
-        case '-': return (x - y).toString();
-        case '×': return (x * y).toString();
-        case '÷': return y !== 0 ? (x / y).toString() : 'Error';
+        case '+': result = x + y; break;
+        case '-': result = x - y; break;
+        case '×': result = x * y; break;
+        case '÷': result = y !== 0 ? x / y : 'Error'; break;
         default: return b;
     }
+    if (result === 'Error') return result;
+    const resultStr = result.toString();
+
+    // If result length (excluding minus and decimal) > 9, use scientific notation
+    if (resultStr.replace(/[-.]/g, '').length > 9) {
+        return result.toExponential(4);
+    }
+    return resultStr;
 }
 
 function resetCalculator() {
