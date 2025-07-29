@@ -26,10 +26,10 @@ numberButtons.forEach(numberButton => {
         if (digitCount >= 9) return;
 
         // If entering the second value (clicking a number after an operation is clicked)
-        if (num1 !== null && previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
+        if (num1 !== null && activeOperatorButton) {
             display.textContent = numberButton.textContent;
-            previouslyClickedButton.classList.remove('active');
-            previouslyClickedButton = null;
+            activeOperatorButton.classList.remove('active');
+            activeOperatorButton = null;
         } else if (display.textContent === '0') {
             // If display is 0, replace it with the clicked number
             display.textContent = numberButton.textContent;
@@ -46,13 +46,13 @@ numberButtons.forEach(numberButton => {
 });
 
 const operationButtons = document.querySelectorAll('.btn.operator');
-let previouslyClickedButton = null;
+let activeOperatorButton = null;
 
 operationButtons.forEach(operationButton => {
     operationButton.addEventListener('click', () => {
         // Remove highlight from previous operation if any
-        if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
-            previouslyClickedButton.classList.remove('active');
+        if (activeOperatorButton) {
+            activeOperatorButton.classList.remove('active');
         } else if (num1 === null) {
             // If first number not yet set, save current display as num1
             num1 = display.textContent;
@@ -66,7 +66,7 @@ operationButtons.forEach(operationButton => {
 
         // Highlight the clicked button
         operationButton.classList.add('active');
-        previouslyClickedButton = operationButton;
+        activeOperatorButton = operationButton;
 
         // Save operation
         operation = operationButton.textContent;
@@ -78,8 +78,8 @@ const equalsButton = document.querySelector('.btn.equals');
 equalsButton.addEventListener('click', () => {
     if (num1 !== null && operation) {
         // Remove highlight from previous operation if any
-        if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
-            previouslyClickedButton.classList.remove('active');
+        if (activeOperatorButton) {
+            activeOperatorButton.classList.remove('active');
         }
 
         num2 = display.textContent;
@@ -98,8 +98,8 @@ clearButton.addEventListener('click', () => {
     clearButton.textContent = 'AC';
 
     // If an operation was clicked, remove its highlight
-    if (previouslyClickedButton && previouslyClickedButton.classList.contains('operator')) {
-        previouslyClickedButton.classList.remove('active');
+    if (activeOperatorButton) {
+        activeOperatorButton.classList.remove('active');
     }
 
     // Reset calculator state
