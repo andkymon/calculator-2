@@ -115,3 +115,17 @@ clearButton.addEventListener('click', () => {
     num2 = null;
     operation = null;
 });
+
+const plusMinusButton = document.querySelector('.btn.plusminus');
+if (plusMinusButton) {
+    plusMinusButton.addEventListener('click', () => {
+        if (display.textContent === '0' || display.textContent === 'Error') return;
+
+        // Toggle display value sign
+        if (display.textContent.startsWith('-')) {
+            display.textContent = display.textContent.slice(1);
+        } else {
+            display.textContent = '-' + display.textContent;
+        }
+    });
+}
