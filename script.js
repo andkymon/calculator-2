@@ -57,8 +57,8 @@ numberButtons.forEach(numberButton => {
             display.textContent = numberButton.textContent;
             activeOperatorButton.classList.remove('active');
             activeOperatorButton = null;
-        } else if (display.textContent === '0') {
-            // If display is 0, replace it with the clicked number
+        } else if (display.textContent === '0' || /e[+-]?\d+$/i.test(display.textContent)) {
+            // If display is 0 or in scientific notation, replace it with the clicked number
             display.textContent = numberButton.textContent;
 
             // Update clear button text to 'C' when a number is clicked
