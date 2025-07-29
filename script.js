@@ -1,6 +1,6 @@
 const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.btn.number');
-const clearButton = document.querySelector('.btn.function');
+const clearButton = document.querySelector('.btn.function.clear');
 
 // Calculator state
 let num1 = null;
