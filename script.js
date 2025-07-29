@@ -121,19 +121,19 @@ clearButton.addEventListener('click', () => {
     resetCalculator();
 });
 
-const plusMinusButton = document.querySelector('.btn.plusminus');
-if (plusMinusButton) {
-    plusMinusButton.addEventListener('click', () => {
-        if (display.textContent === '0' || display.textContent === 'Error') return;
-
-        // Toggle display value sign
-        if (display.textContent.startsWith('-')) {
-            display.textContent = display.textContent.slice(1);
-        } else {
-            display.textContent = '-' + display.textContent;
-        }
-    });
-}
+const backspaceButton = document.querySelector('.btn.backspace');
+backspaceButton.addEventListener('click', () => {
+    if (display.textContent === '0') return;
+    if (display.textContent.length === 1 
+        || (display.textContent.length === 2 && display.textContent.startsWith('-'))
+        || display.textContent === 'Error'
+        || display.textContent === NaN 
+        || /e[+-]?\d+$/i.test(display.textContent)) {
+        display.textContent = '0';
+    } else {
+        display.textContent = display.textContent.slice(0, -1);
+    }
+});
 
 const percentButton = document.querySelector('.btn.function.percent');
 percentButton.addEventListener('click', () => {
@@ -176,16 +176,9 @@ document.addEventListener('keydown', (event) => {
         event.preventDefault();
     }
     
-    // Percent
-    if (key === '%') {
-        const btn = document.querySelector('.btn.function.percent');
-        if (btn) btn.click();
-        event.preventDefault();
-    }
-    
-    // Negative (n)
-    if (key.toLowerCase() === 'n') {
-        const btn = document.querySelector('.btn.plusminus');
+    // Backspace
+    if (key === 'Backspace') {
+        const btn = document.querySelector('.btn.function.backspace');
         if (btn) btn.click();
         event.preventDefault();
     }
