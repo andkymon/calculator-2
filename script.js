@@ -76,12 +76,19 @@ operationButtons.forEach(operationButton => {
 const equalsButton = document.querySelector('.btn.equals');
 
 equalsButton.addEventListener('click', () => {
-    if (num1 !== null && operation) {
-        // Remove highlight from previous operation if any
-        if (activeOperatorButton) {
-            activeOperatorButton.classList.remove('active');
-        }
+    // Do nothing if an operator button is still active
+    if (activeOperatorButton) {
+        activeOperatorButton.classList.remove('active');
+        activeOperatorButton = null;
 
+        // Reset calculator state
+        num1 = null;
+        num2 = null;
+        operation = null;
+        return; 
+    }
+
+    if (num1 !== null && operation) {
         num2 = display.textContent;
         const result = solve(num1, num2, operation);
         display.textContent = result;
@@ -100,6 +107,7 @@ clearButton.addEventListener('click', () => {
     // If an operation was clicked, remove its highlight
     if (activeOperatorButton) {
         activeOperatorButton.classList.remove('active');
+        activeOperatorButton = null;
     }
 
     // Reset calculator state
