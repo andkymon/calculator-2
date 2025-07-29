@@ -1,7 +1,3 @@
-const display = document.querySelector('.display');
-const numberButtons = document.querySelectorAll('.btn.number');
-const clearButton = document.querySelector('.btn.function.clear');
-
 // Calculator state
 let num1 = null;
 let num2 = null;
@@ -20,6 +16,20 @@ function solve(a, b, op) {
     }
 }
 
+function resetCalculator() {
+    num1 = null;    
+    num2 = null;
+    operation = null;
+    
+    if (activeOperatorButton) {
+        activeOperatorButton.classList.remove('active');
+        activeOperatorButton = null;
+    }
+}
+
+const display = document.querySelector('.display');
+const numberButtons = document.querySelectorAll('.btn.number');
+const clearButton = document.querySelector('.btn.function.clear');
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener('click', () => {
         // Prevent inputting more than 9 digits (ignore decimal point)
@@ -74,44 +84,20 @@ operationButtons.forEach(operationButton => {
 
 const equalsButton = document.querySelector('.btn.equals');
 equalsButton.addEventListener('click', () => {
-    // Do nothing if an operator button is still active
-    if (activeOperatorButton) {
-        activeOperatorButton.classList.remove('active');
-        activeOperatorButton = null;
-
-        // Reset calculator state
-        num1 = null;
-        num2 = null;
-        operation = null;
-        return; 
-    }
-
     if (num1 !== null && operation) {
-        num2 = display.textContent;
-        const result = solve(num1, num2, operation);
-        display.textContent = result;
-
-        // Reset calculator state
-        num1 = null;
-        num2 = null;
-        operation = null;
+        if (!activeOperatorButton) { // Skip this snippet if an operator button is still active
+            num2 = display.textContent;
+            const result = solve(num1, num2, operation);
+            display.textContent = result;
+        }
+        resetCalculator();
     }
 });
 
 clearButton.addEventListener('click', () => {
     display.textContent = '0';
     clearButton.textContent = 'AC';
-
-    // If an operation was clicked, remove its highlight
-    if (activeOperatorButton) {
-        activeOperatorButton.classList.remove('active');
-        activeOperatorButton = null;
-    }
-
-    // Reset calculator state
-    num1 = null;
-    num2 = null;
-    operation = null;
+    resetCalculator();
 });
 
 const plusMinusButton = document.querySelector('.btn.plusminus');
