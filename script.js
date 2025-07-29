@@ -36,6 +36,9 @@ numberButtons.forEach(numberButton => {
         const digitCount = display.textContent.replace(/\D/g, '').length;
         if (digitCount >= 9) return;
 
+        // Prevent multiple decimals
+        if (numberButton.textContent === '.' && display.textContent.includes('.')) return;
+
         // If entering the second value (clicking a number after an operation is clicked)
         if (num1 !== null && activeOperatorButton) {
             display.textContent = numberButton.textContent;
