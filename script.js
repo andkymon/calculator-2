@@ -54,7 +54,7 @@ numberButtons.forEach(numberButton => {
         const digitCount = display.textContent.replace(/\D/g, '').length;
         if (digitCount >= 9 && activeOperatorButton === null) return; // Allow entering more digits if an operator is active as a second value is being entered
 
-        // Prevent multiple decimals
+        // Prevent multiple decimal inputs
         if (numberButton.textContent === '.' && display.textContent.includes('.')) return;
 
         // If entering the second value (clicking a number after an operation is clicked)
@@ -94,11 +94,9 @@ operationButtons.forEach(operationButton => {
             num1 = result;
         } 
 
-        // Highlight the clicked button
+        // Highlight the clicked button then save operation
         operationButton.classList.add('active');
         activeOperatorButton = operationButton;
-
-        // Save operation
         operation = operationButton.textContent;
     });
 });
@@ -145,41 +143,36 @@ percentButton.addEventListener('click', () => {
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
-    // Number keys and decimal
     if (/^[0-9.]$/.test(key)) {
         const btn = Array.from(document.querySelectorAll('.btn.number')).find(b => b.textContent === key);
-        if (btn) btn.click();
+        btn.click();
         event.preventDefault();
     }
 
-    // Operators
     if (key === '+' || key === '-' || key === '*' || key === '/' || key === 'x' || key === 'X') {
         let op = key;
         if (op === '*' || op === 'x' || op === 'X') op = '×';
         if (op === '/') op = '÷';
         const btn = Array.from(document.querySelectorAll('.btn.operator')).find(b => b.textContent === op);
-        if (btn) btn.click();
+        btn.click();
         event.preventDefault();
     }
 
-    // Equals or Enter
     if (key === '=' || key === 'Enter') {
         const btn = document.querySelector('.btn.equals');
-        if (btn) btn.click();
+        btn.click();
         event.preventDefault();
     }
     
-    // Clear (Escape or C)
     if (key === 'Escape') {
         const btn = document.querySelector('.btn.function.clear');
-        if (btn) btn.click();
+        btn.click();
         event.preventDefault();
     }
     
-    // Backspace
     if (key === 'Backspace') {
         const btn = document.querySelector('.btn.function.backspace');
-        if (btn) btn.click();
+        btn.click();
         event.preventDefault();
     }
 });
